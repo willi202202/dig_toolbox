@@ -20,7 +20,7 @@ echo "dec2bin  → Dezimal → Binär                  Usage: dec2bin <Zahl> <Nr
 echo "bin2dec  → Binär → Dezimal                  Usage: bin2dec <Bin[.Bin]>"
 echo "kmap     → Karnaugh-Map                     Usage: kmap [-M] <vars> <Maxterm RowNr>"
 echo "bit      → Bit Manipulation                 Usage: bit --clear 11110000 4"
-echo "bool     → Minimierung / Wahrheitstabelle   Usage: tab '!A*!B*!C + !A*B*!C + A*B*!C + A*B*C' --dc 'A*!B*!C + A*!B*C' --v 'A B C' --csvfull"
+echo "bool     → Minimierung / Wahrheitstabelle   Usage: bool '!A*!B*!C + !A*B*!C + A*B*!C + A*B*C' --dc 'A*!B*!C + A*!B*C' --v 'A B C' --csvfull"
 echo "csv2term → Minterme & Maxterme aus Tabelle  Usage: csv2term <path_to_csv>"
 echo ""
 
