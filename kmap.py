@@ -15,8 +15,8 @@ def sop_form(vars, minterms):
         literals = []
         for v, b in zip(vars, bits):
             literals.append(v if b == "1" else f"!{v}")
-        terms.append("(" + " & ".join(literals) + ")")
-    return " | ".join(terms)
+        terms.append("(" + "*".join(literals) + ")")  # & → *, keine Leerzeichen
+    return "+".join(terms)  # | → +, keine Leerzeichen
 
 def pos_form(vars, minterms):
     n = len(vars)
@@ -29,8 +29,9 @@ def pos_form(vars, minterms):
         literals = []
         for v, b in zip(vars, bits):
             literals.append(v if b == "0" else f"!{v}")
-        terms.append("(" + " | ".join(literals) + ")")
-    return " & ".join(terms)
+        terms.append("(" + "+".join(literals) + ")")  # | → +, keine Leerzeichen
+    return "*".join(terms)  # & → *, keine Leerzeichen
+
 
 def print_kmap(vars, minterms):
     n = len(vars)

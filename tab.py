@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 import argparse
 import itertools
+import csv
 from sympy import symbols
 from sympy.logic.boolalg import SOPform, POSform
+# python3 tab.py 'A*B + !C' --dc 'A*!B' --v 'A B C' --csvfull
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Erzeuge eine binäre Wahrheitstabelle aus einem Booleschen Ausdruck.")
     parser.add_argument("tab", type=str, help="Hauptausdruck")
     parser.add_argument("--dc", type=str, default="", help="Don't care Ausdruck")
     parser.add_argument("--v", type=str, required=True, help="Variablen, MSB links, durch Leerzeichen getrennt")
+    parser.add_argument("--csvfull", action="store_true", help="CSV-Ausgabe mit Bin, Minterm und Maxterm erweitern")
     return parser.parse_args()
 
 def eval_expr(expr_str, var_values):
@@ -62,16 +65,37 @@ def main():
 
         min_t = minterm(values, var_names)
         max_t = maxterm(values, var_names)
-        rows.append((str(dec_value), bin_value, output, min_t, max_t))
 
-    # Tabelle drucken
-    col_widths = [max(len(row[i]) for row in rows + [("Dec","Bin","F","Minterm","Maxterm")]) for i in range(5)]
-    headers = ["Dec","Bin","F","Minterm","Maxterm"]
-    header_line = " | ".join(h.ljust(col_widths[i]) for i,h in enumerate(headers))
+        # Zeilenaufbau für volle Tabelle
+        row_full = [str(dec_value), bin_value] + [str(v) for v in values] + [output, min_t, max_t]
+        # Zeilenaufbau für reduzierte Tabelle
+        row_reduced = [str(dec_value)] + [str(v) for v in values] + [output]
+
+        rows.append((row_full, row_reduced))
+
+    # Header vorbereiten
+    headers_full = ["Dec", "Bin"] + var_names + ["Res", "Minterm", "Maxterm"]
+    headers_reduced = ["Dec"] + var_names + ["Res"]
+
+    # Auswahl nach csvfull
+    headers = headers_full if args.csvfull else headers_reduced
+    rows_out = [r[0] if args.csvfull else r[1] for r in rows]
+
+    # Tabelle drucken (immer volle Tabelle für die Konsole!)
+    print_headers = headers_full
+    print_rows = [r[0] for r in rows]
+    col_widths = [max(len(row[i]) for row in print_rows + [print_headers]) for i in range(len(print_headers))]
+    header_line = " | ".join(h.ljust(col_widths[i]) for i,h in enumerate(print_headers))
     print(header_line)
     print("-" * len(header_line))
-    for row in rows:
-        print(" | ".join(row[i].ljust(col_widths[i]) for i in range(5)))
+    for row in print_rows:
+        print(" | ".join(row[i].ljust(col_widths[i]) for i in range(len(print_headers))))
+
+    # CSV schreiben
+    with open("tab.csv", "w", newline="") as f:
+        writer = csv.writer(f, delimiter=";")
+        writer.writerow(headers)
+        writer.writerows(rows_out)
 
     # DNF / KNF aus Tabelle (klassisch)
     dnf_terms = [minterm(v, var_names) for v in ones]
@@ -93,11 +117,14 @@ def main():
     print("\nSymPy minimierte Ausdrücke:")
     if ones:
         min_dnf = SOPform(syms, ones, dc_values)
-        print(f"Minimierte DNF: {min_dnf}")
+        min_dnf_str = str(min_dnf)
+        min_dnf_str = min_dnf_str.replace("&", "*").replace("|", "+").replace("~", "!")
+        print(f"Minimierte DNF: {min_dnf_str}")
     if zeros:
         min_knf = POSform(syms, zeros, dc_values)
-        print(f"Minimierte KNF: {min_knf}")
+        min_knf_str = str(min_knf)
+        min_knf_str = min_knf_str.replace("&", "*").replace("|", "+").replace("~", "!")
+        print(f"Minimierte KNF: {min_knf_str}")
 
 if __name__ == "__main__":
     main()
-
