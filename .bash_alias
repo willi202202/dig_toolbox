@@ -1,0 +1,23 @@
+# .bashrc
+
+alias tt="python3 ~/.local/bin/tt.py"
+alias term="python3 ~/.local/bin/term.py"
+alias dice="python3 ~/.local/bin/dice.py"
+alias dec2bin="python3 ~/.local/bin/dec2bin.py"
+alias bin2dec="python3 ~/.local/bin/bin2dec.py"
+alias kmap="python3 ~/.local/bin/kmap.py"
+alias bit="python3 ~/.local/bin/bit.py"
+alias tab="python3 ~/.local/bin/tab.py"
+
+
+echo ""
+echo "Digitaltechnik Toolbox:"
+echo "--------------------------"
+echo "tt       → Wahrheitstabelle        Usage: tt \"(a and b) or not c\" [Reihenfolge der Variablen]"
+echo "term     → Minterme & Maxterme     Usage: term \"(a and b) or not c\" [Reihenfolge der Variablen]"
+echo "dice     → Würfel (ASCII)          Usage: dice [Anzahl Würfel]"
+echo "dec2bin  → Dezimal → Binär         Usage: dec2bin <Zahl> <IntBits> <FracBits>"
+echo "bin2dec  → Binär → Dezimal         Usage: bin2dec <Binärzahl>"
+echo "kmap     → Karnaugh-Map            Usage: kmap [-M] \"<vars>\" \"<terms>\""
+echo "minbool  → Minimierung             Usage: minbool \"<expression>\""
+echo ""
