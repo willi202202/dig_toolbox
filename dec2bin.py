@@ -60,6 +60,15 @@ def dec_to_bin_steps(number, int_bits, frac_bits):
         bin_str = bin_str_twos
 
     print(f"\nEndergebnis Binär: {bin_str}")
+
+    # --- Hex-Wert berechnen ---
+    if '.' in bin_str:
+        bin_concat = bin_str.replace('.', '')
+    else:
+        bin_concat = bin_str
+    hex_val = hex(int(bin_concat, 2))
+
+    print(f"Hex-Wert: {hex_val}")
     return bin_str
 
 # --- CLI ---
