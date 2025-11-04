@@ -1,3 +1,4 @@
+#  & C:/msys64/mingw64/bin/python3.exe d:/Projekte_GITHub/dig_toolbox/diceGUI.py      
 import gi, random, re, os, json
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, Gdk
