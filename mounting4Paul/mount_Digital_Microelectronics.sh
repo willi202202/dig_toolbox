@@ -5,7 +5,7 @@
 ## Author:         Roman Willi
 ##
 ## Creation Date:  01.04.2025
-## Script Name:    mount_Digital_Design.sh
+## Script Name:    mount_Digital_Microelectronics.sh
 ## Project Name:   
 ## Description:    Mountet Unterrichtsserver in user home
 ##
@@ -14,9 +14,9 @@
 ##---------------------------------------------------------------------------------
 
 # Path of the symbolic link
-link_path=~/Digital_Design
-mount_path="smb://sifs09.ost.ch/bsc.et/unterricht/module_BSc/Digital_Design"
-mount_point="$XDG_RUNTIME_DIR/gvfs/smb-share:server=sifs09.ost.ch,share=bsc.et/unterricht/module_BSc/Digital_Design"
+link_path=~/Digital_Microlectronics
+mount_path="smb://sifs09.ost.ch/bsc.et/unterricht/module_BSc/Digital_Microelectronics"
+mount_point="$XDG_RUNTIME_DIR/gvfs/smb-share:server=sifs09.ost.ch,share=bsc.et/unterricht/module_BSc/Digital_Microelectronics"
 
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
 
@@ -49,7 +49,7 @@ echo "Creating symlink: $link_path"
 ln -s "$mount_point" "$link_path"
 
 if [ -e "$link_path" ]; then
-	echo "✅ The link $link_path is working"
+	echo "✅ The link $link_path is workingg"
 	code&
 else
 	echo "❌ The link $link_path is not working"
@@ -61,9 +61,12 @@ fi
 # ----------
 
 # MOUNT, LINK
-#gio mount cifs smb://sifs09.ost.ch/bsc.et/unterricht/module_BSc/Digital_Design
-#ln -s "$XDG_RUNTIME_DIR/gvfs/smb-share:server=sifs09.ost.ch,share=bsc.et/unterricht/module_BSc/Digital_Design" ~/Digital_Design
+#gio mount cifs smb://sifs09.ost.ch/bsc.et/unterricht/module_BSc/Digital_Microlectronics
+#ln -s "$XDG_RUNTIME_DIR/gvfs/smb-share:server=sifs09.ost.ch,share=bsc.et/unterricht/module_BSc/Digital_Microlectronics" ~/Digital_Microlectronics
 
 # UNMOUNT, UNLINK
-#gio mount -u smb://sifs09.ost.ch/bsc.et/unterricht/module_BSc/Digital_Design
-#unlink ~/Digital_Design
+#gio mount -u smb://sifs09.ost.ch/bsc.et/unterricht/module_BSc/Digital_Microlectronics
+#unlink ~/Digital_Microlectronics
+
+# Auführbar machen:
+# chmod +x meinscript.sh

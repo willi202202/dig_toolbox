@@ -33,3 +33,6 @@ unlink "$link_path"
 # UNMOUNT, UNLINK
 #gio mount -u smb://sifs09.ost.ch/bsc.et/unterricht/module_BSc/Digital_Microelectronics
 #unlink ~/Digital_Microelectronics
+
+# Auführbar machen:
+# chmod +x meinscript.sh
